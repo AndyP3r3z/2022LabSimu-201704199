@@ -11,7 +11,7 @@ int n = sizeof(y)/sizeof(y[0]);
 //     2.4. x = arreglo con numeros del 1 al 10.
 float x[] = {1,2,3,4,5,6,7,8,9,10};
 // Antes de continuar, prototipamos nuestras funciones
-void gnuplot();// Función para sacar el archivo de gnuplot
+int gnuplot();// Función para sacar el archivo de gnuplot
 float sum(float v[]);
 float sump(float v[], float w[]);
 
@@ -30,7 +30,9 @@ int main(int argc, char const *argv[]) {
 // 	3.2. Imprimir el valor de (y-b)/m cuando y = 30.
   printf("Tiempo estimado para alcanzar un precio de Q.30.00: %.1f semanas", (30-b)/m);
 // 	3.3. Crear el archivo de gnuplot con la función gnuplot()
-  gnuplot();
+  if (gnuplot() != 0){
+    return 1;
+  }
 // 	3.4. Imprimir un mensaje de éxito y recordar al usuario correr el gnuplot (dar el comando para que sólo se tenga que copiar y pegar)
   puts("SE HA FINALIZADO CON ÉXITO. NO SE OLVIDE EJECUTAR EL ARCHIVO DE GNUPLOT CON EL SIGUIENTE COMANDO:\n");
   puts("gnuplot combustible.gp");
@@ -67,9 +69,28 @@ float sump(float v[], float w[]){
 // FIN sump(v,w)
 
 // INICIO gnuplot()
-// 	  1. Poner los puntos de los datos.
-// 		2. Poner la recta que se adecúa más a los datos.
-// 		3. Poner los ejes como "Semana" y "Precio por Galón (Q.)"
-// 		4. Poner los valores de m y b.
-// 		5. Poner el tiempo estimado para que el precio sea de Q.30.00.
+int gnuplot() {
+  //    0. Preparación del archivo.
+  FILE* pfile;  // Inicializamos el puntero del archivo.
+  char *salida = "combustible.gp"; // Nombre del archivo.
+  if ((pfile = fopen(salida, "w")) == NULL) { // Abrimos y validamos la comunicación.
+    puts("Error de escritura.");
+    return 1;
+  }
+  putc("unset label\nclear\nset terminal pdf\nset output 'tendencia.pdf'\nset title 'Tendencia de la Gasolina'\n",pfile);
+  // 		1. Poner los ejes como "Semana" y "Precio por Galón (Q.)"
+  putc("set xlabel 'Semana'\nset ylabel 'Precio por Galon (Q.)'\n", pfile);
+  putc("set grid\n", pfile);
+  // 	  2. Poner los puntos de los datos.
+  putc("set style data linespoint\n", pfile);
+  putc("plot 'data'\n", pfile);
+  // 		3. Poner la recta que se adecúa más a los datos.
+  putc("set style data line\n", pfile);
+  putc("", pfile);
+  // 		4. Poner los valores de m y b.
+  // putc("plot m*x + b", pfile);
+  // 		5. Poner el tiempo estimado para que el precio sea de Q.30.00.
+  fclose(pfile);
+  return 0;
+}
 // FIN gnuplot()
