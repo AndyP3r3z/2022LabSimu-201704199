@@ -3,7 +3,7 @@
 ## Problema 1: Precio del combustible
 ### Metodología
 
- 1. Se comenzó con la abstracción del problema, analizando los dos requerimientos del probgrama. Se determinó que el problema se podría reducir a la utilización de sumatorias simples y sumatorias de productos y al despeje de la ecuación de la recta.
+ 1. Se comenzó con la abstracción del problema, analizando los dos requerimientos del programa. Se determinó que el problema se podría reducir a la utilización de sumatorias simples y sumatorias de productos y al despeje de la ecuación de la recta.
  2. Se planeó hacer primero el programa y que imprimiese los resultados en la consola, al tiempo que tomaba estos valores y escribía un archivo *gnuplot* para hacer la gráfica.
  3. Se procedió a realizar el pseudocódigo del programa de una manera ordenada y  con la ayuda de la abstracción del problema que se hizo al comienzo.
 
