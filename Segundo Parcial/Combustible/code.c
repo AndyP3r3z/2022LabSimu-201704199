@@ -4,6 +4,7 @@
 //     1.1. Importar librerías.
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
 //     2.2. Guardar los datos de y
 float y[] = {20.20,20.90,20.60,21.30,21.75,22.05,23.62,22.95,23.80,24.00};
 //     2.3. n = longitud del arreglo.
@@ -29,11 +30,9 @@ int main(int argc, char const *argv[]) {
   printf("y = %fx + %f\n", m, b);
 // 	3.2. Imprimir el valor de (y-b)/m cuando y = 30.
   printf("Tiempo estimado para alcanzar un precio de Q.30.00: %.1f semanas\n", (30-b)/m);
-// 	3.3. Imprimir un mensaje de éxito y recordar al usuario correr el gnuplot (dar los comandos para que sólo se tenga que copiar y pegar)
-  puts("SE HA FINALIZADO CON ÉXITO. NO SE OLVIDE EJECUTAR EL ARCHIVO DE GNUPLOT CON LOS SIGUIENTES COMANDOS:\n");
-  puts("\n");
-  // Imprimir comandos de gnuplot
+// 	3.3. Correr el gnuplot e imprimir un mensaje de éxito.
   gnuplot(m, b);
+  puts("SE HA FINALIZADO CON ÉXITO.\n");
   return 0;
 }
 // FIN PRINCIPAL
@@ -68,17 +67,20 @@ float sump(float v[], float w[]){
 
 // INICIO gnuplot()
 int gnuplot(float m, float b) {
+  FILE *pfile = fopen("gnuplot.gp", "wt");
   //    0. Preparación del archivo.
-  puts("unset label\nclear\nset terminal pdf\nset output 'tendencia.pdf'\nset title 'Tendencia de la Gasolina'\n");
+  fprintf(pfile, "unset label\nclear\nset terminal pdf\nset output 'tendencia.pdf'\nset title 'Tendencia de la Gasolina'\n");
   // 		1. Poner los ejes como "Semana" y "Precio por Galón (Q.)"
-  puts("set xlabel 'Semana'\nset ylabel 'Precio por Galon (Q.)'\n");
-  puts("set grid\nset key left\n");
+  fprintf(pfile, "set xlabel 'Semana'\nset ylabel 'Precio por Galon (Q.)'\n");
+  fprintf(pfile, "set grid\nset key left\n");
   // 	  2. Poner los puntos de los datos.
-  puts("plot 'data' w p, ");
+  fprintf(pfile, "plot 'data' w p, ");
   // 		3. Poner la recta que se adecúa más a los datos.
   		// 4. Poner los valores de m y b.
-  printf("%.3f*x + %.3f w l\n", m, b);
-  // 		5. Poner el tiempo estimado para que el precio sea de Q.30.00.
+  fprintf(pfile, "%.3f*x + %.3f w l\n", m, b);
+  // 5. Obtener la gráfica
+  fclose(pfile);
+  system("gnuplot gnuplot.gp");
   return 0;
 }
 // FIN gnuplot()
