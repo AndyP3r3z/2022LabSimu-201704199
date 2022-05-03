@@ -37,7 +37,7 @@ void main(void){
   printf("No se llegó a una solución aceptable luego de %d iteraciones\n", it);
   } else{
 	// 	4.2. No -> Imprimir las iteraciones necesitadas y el valor encontrado.
-  printf("Luego de %d iteraciones, se encontró la solución x = %.4f\n", Ait, xS);
+  printf("Luego de %d iteraciones, se encontró la solución x = %f\n", Ait, xS);
   }
 }
   // FIN PRINCIPAL
@@ -72,11 +72,9 @@ void NewtonRaphson(float x_0, float tol, int imax, int *iact, float *ans) {
     xant = x;
 	   // 	c.2. Avanzar a la siguiente iteración.
     x = xant - f(xant)/dfdx(xant);
-    printf("%d: x= %.4f\n", i,x);
     dif = x - xant;
     (dif < 0)?dif = -dif:dif; // Valor absoluto de dif
     i++;
-    printf("%f %f\n", tol, dif);
   }
 	// d. Apuntar a la memoria para dar la respuesta.
   *ans = x;
