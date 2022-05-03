@@ -123,7 +123,8 @@ Realizar esto es bastante sencillo, mediante un ciclo *while* que siempre verifi
 	4. ¿Se pasó de las iteraciones máximas?
 		4.1. Sí -> Imprimir un mensaje informando que no se llegó a una solución aceptable.
 		4.2. No -> Imprimir las iteraciones necesitadas y el valor encontrado.
-  FIN PRINCIPAL
+	FIN PRINCIPAL
+
 	INICIO f(x):
 	a. Retornar cos(e^x-2)-e^x+2
 	FIN f(x)
