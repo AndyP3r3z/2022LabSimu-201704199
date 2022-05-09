@@ -120,7 +120,7 @@ void multi(){
       int sum = 0;
       // Sumar
       for (k = 0; k < 3; k++) {
-        sum += matA[i][k]*matB[k][i];
+        sum += matA[i][k]*matB[k][j];
       }
       C[i][j] = sum;
     }
