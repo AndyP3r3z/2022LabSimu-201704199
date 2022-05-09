@@ -17,7 +17,7 @@ int main(int argc, char const *argv[]) {
 int factorial(int n){
   if (n > 1) {
     return n*factorial(n-1); // Si es mayor a 1, que lo multiplique por el anterior.
-  } else if (n == 1) {
+  } else if (n == 1 || n == 0) {
     return 1; // Límite inferior.
   } else {
     return 0; // Por si algo sale mal.
